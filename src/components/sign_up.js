@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {renderInput} from "../helpers/index";
+import {signUp} from "../actions/index";
 
 class SignUp extends Component{
 
@@ -8,6 +10,8 @@ class SignUp extends Component{
 
     handleSignUp(vals){
         console.log("vals: ", vals);
+
+        this.props.signUp(vals);
     }
 
     render(){
@@ -62,5 +66,5 @@ SignUp = reduxForm({
     validate: validate
 })(SignUp);
 
-export default SignUp;
+export default connect(null, {signUp})(SignUp);
 

@@ -32,6 +32,7 @@ export function signIn(cred){
 
             dispatch({type: types.SIGN_IN});
         }).catch(err => {
+            console.log('Sign In Err:', err);
             dispatch({
                 type: types.ERROR,
                 payload: 'Invalid Username or Password.'
@@ -43,7 +44,21 @@ export function signIn(cred){
 export function getQuote(){
     return dispatch => {
 
-        axios.get(BASE_URL, {headers: {authorization: localStorage.getItem('token')}}).then(resp => {console.log('Quote request response: ', resp)});
+        axios.get(BASE_URL, {headers: {authorization: localStorage.getItem('token')}}).then(resp => {
+
+            dispatch({
+                type: types.GET_QUOTE,
+                payload: resp.data.message
+            });
+        });
+    }
+}
+
+export function logout(){
+    localStorage.removeItem('token');
+
+    return {
+        type: types.LOG_OUT
     }
 }
 
